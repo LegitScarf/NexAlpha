@@ -116,8 +116,8 @@ The entire site lives in a single `index.html`. No build step, no package manage
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-username.github.io.git
-cd your-username.github.io
+git clone https://legitscarf.github.io/nexalpha.github.io/
+cd nexalpha.github.io
 
 # Option 1 — open directly
 open index.html
