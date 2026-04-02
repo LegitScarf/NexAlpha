@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexAlpha | Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Syne:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/portal.css">
+</head>
+
+<body>
+    <div class="portal-shell">
+        <nav class="portal-nav">
+            <a class="portal-brand" href="index.html">NEX<span>ALPHA</span></a>
+            <div class="portal-nav-links">
+                <a class="portal-link" href="register.html">Register</a>
+                <a class="portal-button" href="index.html#products">Products</a>
+            </div>
+        </nav>
+
+        <div class="portal-grid">
+            <section class="hero-panel">
+                <div class="eyebrow">Secure Access</div>
+                <h1 class="hero-title">Sign in to continue into <em>NexAlpha</em></h1>
+                <p class="hero-copy">
+                    Your account dashboard handles the rest of the access flow automatically. If you are approved and
+                    subscribed, it will unlock both OptiTrade and BharatAlpha from one place.
+                </p>
+                <div class="terminal">
+                    <div><strong>Access Rule</strong></div>
+                    <div>logged in</div>
+                    <div>email verified</div>
+                    <div>admin approved</div>
+                    <div>subscription active</div>
+                    <div>= access granted</div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="status-badge success">Member Sign In</div>
+                <h2>Welcome back</h2>
+                <p class="muted">Use the account you registered with. If approval or billing is still pending, the
+                    dashboard will guide you to the next step.</p>
+
+                <form class="portal-form" data-login-form>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="portal-button" type="submit">Sign In</button>
+                    <p class="hint">If you have just verified your email, sign in again so the latest account state is
+                        loaded.</p>
+                </form>
+
+                <div class="message" data-form-message></div>
+
+                <p class="footer-copy">No account yet? <a href="register.html">Create one here</a>.</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script type="module" src="assets/js/login.js"></script>
+</body>
+
+</html>

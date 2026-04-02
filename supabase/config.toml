@@ -1,0 +1,16 @@
+project_id = "your-project-id"
+
+[functions.me-status]
+verify_jwt = true
+
+[functions.create-subscription]
+verify_jwt = true
+
+[functions.admin-list-users]
+verify_jwt = true
+
+[functions.admin-approve-user]
+verify_jwt = true
+
+[functions.razorpay-webhook]
+verify_jwt = false

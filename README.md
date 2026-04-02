@@ -1,202 +1,230 @@
 <div align="center">
 
-<!-- HEADER BANNER -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:020507,50:00ff88,100:ffb800&height=200&section=header&text=NEXALPHA&fontSize=72&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Intelligent%20Market%20Systems%20%E2%80%94%20India&descAlignY=58&descSize=16" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:020507,50:00ff88,100:ffb800&height=200&section=header&text=NEXALPHA&fontSize=72&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Intelligent%20Market%20Systems%20-%20India&descAlignY=58&descSize=16" width="100%"/>
 
-<br/>
-
-<!-- STATUS BADGES -->
-![Status](https://img.shields.io/badge/STATUS-LIVE_BETA-00ff88?style=for-the-badge&labelColor=020507&color=00ff88)
+![Status](https://img.shields.io/badge/STATUS-GATED_BETA-00ff88?style=for-the-badge&labelColor=020507&color=00ff88)
 ![Products](https://img.shields.io/badge/PRODUCTS-2_ACTIVE-ffb800?style=for-the-badge&labelColor=020507&color=ffb800)
-![Market](https://img.shields.io/badge/MARKET-NIFTY50%20%7C%20BSE%20%7C%20NSE-00d4ff?style=for-the-badge&labelColor=020507&color=00d4ff)
-![Tech](https://img.shields.io/badge/POWERED_BY-MULTI--AGENT_AI-ff3b5c?style=for-the-badge&labelColor=020507&color=ff3b5c)
-
-<br/><br/>
-
-<!-- TECH STACK BADGES -->
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=flat-square&logo=github&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Auth](https://img.shields.io/badge/AUTH-SUPABASE-00d4ff?style=for-the-badge&labelColor=020507&color=00d4ff)
+![Billing](https://img.shields.io/badge/BILLING-RAZORPAY-ff3b5c?style=for-the-badge&labelColor=020507&color=ff3b5c)
 
 </div>
 
 ---
 
-<div align="center">
+## Overview
 
-### *Transforming how India trades and invests — through AI systems that perceive, reason, and act on financial markets in real time.*
+NexAlpha is the product brand for a suite of multi-agent AI systems built for the Indian financial markets.
 
-</div>
+This repository now contains:
 
----
+- the public GitHub Pages landing page
+- static login, registration, account, and access-check pages
+- Supabase schema for auth, approvals, subscriptions, and payments
+- Supabase Edge Function scaffolding for status, approvals, subscription creation, and Razorpay webhooks
 
-## ⚡ Overview
+The intended access rule is:
 
-**NexAlpha** is the product brand for a suite of multi-agent AI systems built for the Indian financial markets. This repository contains the static website (`index.html`) — the public-facing landing page that communicates the company vision, presents both products, and directs users to the live beta applications.
+```text
+logged in + email verified + admin approved + subscription active = access granted
+```
 
-> Both products are currently in **Beta v0.1**. Next-generation versions are actively in development.
-
----
-
-## 🛰️ Live Products
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### ⚙️ OptiTrade
-**Multi-Agent Options Trading Assistant**
-
-![OptiTrade](https://img.shields.io/badge/BETA-v0.1-ff3b5c?style=flat-square&labelColor=020507)
-![Market](https://img.shields.io/badge/Nifty50-F%26O-00ff88?style=flat-square&labelColor=020507)
-
-A sophisticated multi-agent system purpose-built for **Nifty50 Futures & Options** trading. Specialized agents collaborate in real time to scan the market, analyze options chains, and surface actionable signals.
-
-**Capabilities:**
-- Real-time Nifty50 options chain monitoring
-- Multi-agent signal synthesis & validation
-- Open interest & implied volatility analysis
-- Risk-calibrated trade recommendations
-- Live P&L tracking and Greeks dashboard
-
-</td>
-<td width="50%" valign="top">
-
-### 📊 BharatAlpha
-**AI Equity Research & Intelligence Platform**
-
-![BharatAlpha](https://img.shields.io/badge/BETA-v0.1-ff3b5c?style=flat-square&labelColor=020507)
-![Market](https://img.shields.io/badge/BSE%20%7C%20NSE-EQUITY-ffb800?style=flat-square&labelColor=020507)
-
-A deep equity research platform built specifically for the **Indian market** — giving retail investors access to institutional-grade intelligence across BSE and NSE.
-
-**Capabilities:**
-- BSE & NSE comprehensive stock coverage
-- AI-driven fundamental & technical analysis
-- Sector rotation and macro intelligence
-- Company-specific research report generation
-- Portfolio screening and risk assessment
-
-</td>
-</tr>
-</table>
-
-> [!WARNING]
-> Both OptiTrade and BharatAlpha are currently in **beta**. Features and interfaces are actively evolving. Next-generation versions with expanded capabilities and deeper agent collaboration are in development.
+One `Rs 500/month` subscription unlocks both OptiTrade and BharatAlpha.
 
 ---
 
-## 🏗️ Tech Stack
+## Current User Flow
+
+1. User registers publicly on `register.html`
+2. User verifies email
+3. Admin approves the account
+4. Approved user starts the Razorpay subscription
+5. Razorpay webhook marks the subscription active
+6. User can launch both apps through `access.html`
+
+---
+
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript — zero dependencies, zero build step |
-| **Typography** | Orbitron · Share Tech Mono · Syne — via Google Fonts |
-| **Animations** | CSS keyframes, SVG stroke-dashoffset draw-on, IntersectionObserver API |
-| **Visual FX** | CRT scanlines, animated grid background, canvas particles, custom cursor |
-| **Hosting** | GitHub Pages — branch: `main`, root: `/` |
-| **Product Backend** | AWS Application Load Balancer — region: `ap-south-1` |
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Hosting | GitHub Pages |
+| Auth | Supabase Auth |
+| Database | Supabase Postgres |
+| Backend | Supabase Edge Functions |
+| Billing | Razorpay Subscriptions |
+| Product Apps | Streamlit |
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
-```
+```text
 nexalpha/
-├── index.html        ← static website (all CSS & JS inline, zero dependencies)
-└── README.md         ← this file
+├── index.html
+├── login.html
+├── register.html
+├── account.html
+├── access.html
+├── admin.html
+├── assets/
+│   ├── css/
+│   │   └── portal.css
+│   └── js/
+│       ├── config.js
+│       ├── auth-client.js
+│       ├── login.js
+│       ├── register.js
+│       ├── account.js
+│       ├── access.js
+│       └── admin.js
+├── supabase/
+│   ├── migrations/
+│   │   └── 20260402_auth_billing.sql
+│   └── functions/
+│       ├── _shared/
+│       ├── me-status/
+│       ├── create-subscription/
+│       ├── admin-list-users/
+│       ├── admin-approve-user/
+│       └── razorpay-webhook/
+└── README.md
 ```
-
-The entire site lives in a single `index.html`. No build step, no package manager, no framework required.
 
 ---
 
-## 🚀 Local Development
+## Local Development
 
 ```bash
-# Clone the repository
-git clone https://legitscarf.github.io/nexalpha.github.io/
-cd nexalpha.github.io
-
-# Option 1 — open directly
-open index.html
-
-# Option 2 — Python server (recommended)
+# from the repo root
 python -m http.server 5500
-# → http://localhost:5500
 
-# Option 3 — Node.js
-npx serve .
-# → http://localhost:3000
+# then open
+http://localhost:5500
 ```
 
+You should use a local HTTP server rather than opening the files directly, because Supabase auth flows and redirects behave more reliably over HTTP.
+
 ---
 
-## 🌐 Deployment (GitHub Pages)
+## Frontend Setup
 
-```bash
-# Push your changes
-git add .
-git commit -m "deploy: update site"
-git push origin main
+Update `assets/js/config.js` before using the auth flow:
 
-# GitHub Pages will auto-redeploy within ~60 seconds
-# Site live at: https://your-username.github.io
+```js
+window.NEXALPHA_CONFIG = Object.freeze({
+  supabaseUrl: "https://YOUR_PROJECT_ID.supabase.co",
+  supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY",
+  functionsBaseUrl: "https://YOUR_PROJECT_ID.supabase.co/functions/v1",
+  billing: {
+    amountInr: 500,
+    interval: "month"
+  },
+  products: {
+    optitrade: {
+      name: "OptiTrade",
+      appUrl: "https://optitrade-nexalpha.streamlit.app/"
+    },
+    bharatalpha: {
+      name: "BharatAlpha",
+      appUrl: "https://bharatalpha-nexalpha.streamlit.app/"
+    }
+  }
+});
 ```
 
-**Setup (first time):**
-1. Go to **Settings → Pages** in your repository
-2. Source: **Deploy from a branch** → `main` → `/ (root)`
-3. Save — your site will be live at `https://your-username.github.io`
-
-> [!NOTE]
-> The product backends currently run on **HTTP** (AWS ALB). Since GitHub Pages enforces HTTPS, some browsers may block navigation as mixed content. The fix is to front both ALBs with a custom domain and ACM SSL certificate — expected during beta.
+The Supabase anon key is safe to expose in the browser. Do not put service role keys in this repository.
 
 ---
 
-## 🗺️ Roadmap
+## Supabase Setup
 
-| Status | Item |
-|---|---|
-| ✅ Done | Static site deployed on GitHub Pages |
-| ✅ Done | OptiTrade Beta v0.1 — live on AWS ap-south-1 |
-| ✅ Done | BharatAlpha Beta v0.1 — live on AWS ap-south-1 |
-| 🔄 Next | HTTPS via custom domain & AWS Certificate Manager |
-| ⬜ Planned | Live market data ticker via NSE/BSE API |
-| ⬜ Planned | OptiTrade V2 — expanded instruments, predictive agents |
-| ⬜ Planned | BharatAlpha V2 — deeper agent collaboration, portfolio intelligence |
-| ⬜ Planned | Early-access waitlist form for V2 sign-ups |
+Run the SQL in:
 
----
+- `supabase/migrations/20260402_auth_billing.sql`
 
-## 🔧 Updating Product Links
+This creates:
 
-The product URLs appear in **4 places** in `index.html`. Search for these strings to locate them:
+- `profiles`
+- `subscriptions`
+- `payments`
+- `audit_logs`
+- triggers for new-user profile creation
+- RLS policies for user-owned reads
+- `account_state_for_user(...)` RPC logic
 
-```
-href="http://optitrade-alb-...      ← OptiTrade card + CTA button
-href="http://bharatalpha-alb-...    ← BharatAlpha card + CTA button
+Required Supabase function secrets:
+
+```text
+SUPABASE_URL
+SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY
+RAZORPAY_KEY_ID
+RAZORPAY_KEY_SECRET
+RAZORPAY_PLAN_ID
+RAZORPAY_WEBHOOK_SECRET
 ```
 
-Replace with updated URLs whenever the backends are migrated or redeployed.
+Deploy these functions:
+
+- `me-status`
+- `create-subscription`
+- `admin-approve-user`
+- `razorpay-webhook`
 
 ---
 
-## ⚠️ Disclaimer
+## What Each Page Does
 
-The content on this website is for **informational purposes only** and does not constitute financial advice. Trading in Futures and Options involves significant risk of loss. Users should conduct their own research and consult a SEBI-registered financial advisor before making investment decisions.
+- `index.html`: public marketing site and launch entrypoint
+- `register.html`: public signup page
+- `login.html`: sign-in page
+- `account.html`: shows approval, billing, and access state
+- `access.html`: checks entitlement before redirecting to a product app
+- `admin.html`: lightweight admin queue for approvals and billing review
 
 ---
 
-<div align="center">
+## What Each Function Does
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:ffb800,50:00ff88,100:020507&height=120&section=footer" width="100%"/>
+- `me-status`: returns the current effective access state for the signed-in user
+- `create-subscription`: creates a Razorpay subscription for approved users
+- `admin-list-users`: returns the current approval queue and subscription summary
+- `admin-approve-user`: approves or rejects pending users
+- `razorpay-webhook`: verifies webhook signatures and syncs subscription/payment state into Supabase
 
-**© 2025 NexAlpha — All Rights Reserved**
+---
 
-*Proprietary software. Unauthorized reproduction or distribution is not permitted.*
+## Product URL Configuration
 
-![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=nexalpha.readme&left_color=020507&right_color=00ff88)
+App URLs are now configured in:
 
-</div>
+- `assets/js/config.js`
+
+Update these values whenever OptiTrade or BharatAlpha move to a new endpoint.
+
+---
+
+## Important Boundary
+
+This repo now handles the landing page, auth pages, and backend scaffolding.
+
+Direct product URLs are not fully protected until the Streamlit apps themselves enforce NexAlpha entitlement before rendering. That still needs to be added inside the OptiTrade and BharatAlpha codebases.
+
+---
+
+## Deployment Notes
+
+The static pages can continue to deploy through GitHub Pages.
+
+The secure parts must be deployed separately:
+
+- database and auth in Supabase
+- edge functions in Supabase
+- product-app entitlement checks inside each Streamlit app
+
+---
+
+## Disclaimer
+
+The content on this website is for informational purposes only and does not constitute financial advice. Trading in Futures and Options involves significant risk of loss. Users should conduct their own research and consult a SEBI-registered financial advisor before making investment decisions.

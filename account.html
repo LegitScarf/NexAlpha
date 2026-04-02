@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexAlpha | Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Syne:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/portal.css">
+</head>
+
+<body>
+    <div class="portal-shell">
+        <nav class="portal-nav">
+            <a class="portal-brand" href="index.html">NEX<span>ALPHA</span></a>
+            <div class="portal-nav-links">
+                <span class="portal-link" data-user-email>Loading...</span>
+                <button class="portal-button-secondary" type="button" data-sign-out>Sign Out</button>
+            </div>
+        </nav>
+
+        <div class="portal-grid">
+            <section class="hero-panel">
+                <div class="eyebrow">Account Center</div>
+                <h1 class="hero-title">Your NexAlpha <em>access control</em> hub</h1>
+                <p class="hero-copy">
+                    This page is the single source of truth for approvals, billing, and launch access. Both OptiTrade
+                    and BharatAlpha will rely on the same entitlement state.
+                </p>
+                <div class="status-badge info" data-account-state>Loading account state</div>
+                <div class="message" data-account-message></div>
+                <div class="button-row" data-account-actions></div>
+                <div class="kv-grid" data-account-summary></div>
+            </section>
+
+            <aside class="stack">
+                <h3>What happens next</h3>
+                <ul class="status-list">
+                    <li>
+                        <strong>Email verification</strong>
+                        Required before your account enters the approval queue.
+                    </li>
+                    <li>
+                        <strong>Manual approval</strong>
+                        New users stay pending until an admin approves them.
+                    </li>
+                    <li>
+                        <strong>Subscription</strong>
+                        One Rs 500 monthly subscription unlocks both apps.
+                    </li>
+                    <li>
+                        <strong>App gating</strong>
+                        Streamlit apps should validate this same account state before rendering.
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script type="module" src="assets/js/account.js"></script>
+</body>
+
+</html>

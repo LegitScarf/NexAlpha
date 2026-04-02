@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexAlpha | Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Syne:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/portal.css">
+</head>
+
+<body>
+    <div class="portal-shell">
+        <nav class="portal-nav">
+            <a class="portal-brand" href="index.html">NEX<span>ALPHA</span></a>
+            <div class="portal-nav-links">
+                <a class="portal-link" href="account.html">Account</a>
+                <button class="portal-button-secondary" type="button" data-admin-refresh>Refresh</button>
+            </div>
+        </nav>
+
+        <section class="card">
+            <div class="status-badge info">Admin Queue</div>
+            <h1 class="hero-title">User approvals and billing state</h1>
+            <p class="hero-copy">
+                This lightweight admin screen is intended for early beta operations: approve new signups, reject users,
+                and review subscription state before product access is granted.
+            </p>
+            <div class="message" data-admin-message></div>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Approval</th>
+                        <th>Subscription</th>
+                        <th>State</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody data-admin-body>
+                    <tr>
+                        <td colspan="5" class="muted">Loading users...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script type="module" src="assets/js/admin.js"></script>
+</body>
+
+</html>

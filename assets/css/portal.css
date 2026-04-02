@@ -1,0 +1,475 @@
+:root {
+    --bg: #030608;
+    --surface: #081017;
+    --surface-2: #0d1720;
+    --surface-3: #12232e;
+    --green: #00ff88;
+    --green-dim: #00c86b;
+    --amber: #ffb800;
+    --red: #ff4d67;
+    --cyan: #00d4ff;
+    --text: #d2e4ee;
+    --text-dim: #7b97a6;
+    --border: rgba(0, 255, 136, 0.16);
+    --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    --success-bg: rgba(0, 255, 136, 0.08);
+    --warning-bg: rgba(255, 184, 0, 0.1);
+    --danger-bg: rgba(255, 77, 103, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top right, rgba(0, 212, 255, 0.08), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(0, 255, 136, 0.07), transparent 24%),
+        var(--bg);
+    color: var(--text);
+    font-family: "Syne", sans-serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    z-index: -2;
+}
+
+a {
+    color: inherit;
+}
+
+.portal-shell {
+    width: min(1080px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 40px 0 72px;
+}
+
+.portal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    background: rgba(3, 6, 8, 0.88);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow);
+}
+
+.portal-brand {
+    font-family: "Orbitron", monospace;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-decoration: none;
+    color: var(--green);
+}
+
+.portal-brand span {
+    color: var(--amber);
+}
+
+.portal-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.portal-link,
+.portal-button,
+.portal-button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.portal-link,
+.portal-button-secondary {
+    border: 1px solid rgba(210, 228, 238, 0.16);
+    background: transparent;
+    color: var(--text);
+}
+
+.portal-button {
+    border: 1px solid rgba(0, 255, 136, 0.32);
+    background: rgba(0, 255, 136, 0.11);
+    color: var(--green);
+}
+
+.portal-link:hover,
+.portal-button:hover,
+.portal-button-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+
+.portal-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 24px;
+}
+
+.hero-panel,
+.card,
+.stack {
+    background: linear-gradient(180deg, rgba(8, 16, 23, 0.94), rgba(5, 11, 16, 0.98));
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.hero-panel {
+    padding: 36px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 2.8px;
+    color: var(--green);
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+}
+
+h1,
+.hero-title {
+    margin: 0;
+    font-family: "Orbitron", monospace;
+    font-size: clamp(32px, 4.8vw, 58px);
+    line-height: 1.05;
+}
+
+.hero-title em {
+    color: var(--amber);
+    font-style: normal;
+}
+
+.hero-copy,
+.muted {
+    color: var(--text-dim);
+    line-height: 1.75;
+}
+
+.hero-copy {
+    margin: 18px 0 28px;
+    max-width: 60ch;
+    font-size: 16px;
+}
+
+.hero-actions,
+.button-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.stack,
+.card {
+    padding: 28px;
+}
+
+.card h2,
+.card h3 {
+    margin: 0 0 12px;
+    font-family: "Orbitron", monospace;
+}
+
+.card h2 {
+    font-size: 28px;
+}
+
+.card h3 {
+    font-size: 20px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    border: 1px solid rgba(210, 228, 238, 0.16);
+}
+
+.status-badge.success {
+    color: var(--green);
+    background: var(--success-bg);
+    border-color: rgba(0, 255, 136, 0.28);
+}
+
+.status-badge.warning {
+    color: var(--amber);
+    background: var(--warning-bg);
+    border-color: rgba(255, 184, 0, 0.28);
+}
+
+.status-badge.danger {
+    color: var(--red);
+    background: var(--danger-bg);
+    border-color: rgba(255, 77, 103, 0.28);
+}
+
+.status-badge.info {
+    color: var(--cyan);
+    background: rgba(0, 212, 255, 0.08);
+    border-color: rgba(0, 212, 255, 0.28);
+}
+
+.status-list,
+.feature-list,
+.timeline {
+    display: grid;
+    gap: 12px;
+    padding: 0;
+    margin: 20px 0 0;
+    list-style: none;
+}
+
+.status-list li,
+.feature-list li,
+.timeline li {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-list strong,
+.timeline strong {
+    display: block;
+    margin-bottom: 6px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.portal-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.field {
+    display: grid;
+    gap: 8px;
+}
+
+.field label {
+    font-family: "Share Tech Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.field input {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    border: 1px solid rgba(210, 228, 238, 0.16);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    font: inherit;
+}
+
+.field input:focus {
+    outline: none;
+    border-color: rgba(0, 255, 136, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+}
+
+.portal-form .hint,
+.portal-note,
+.microcopy {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.message.is-visible {
+    display: block;
+}
+
+.message.success {
+    background: var(--success-bg);
+    color: var(--green);
+    border-color: rgba(0, 255, 136, 0.24);
+}
+
+.message.warning {
+    background: var(--warning-bg);
+    color: var(--amber);
+    border-color: rgba(255, 184, 0, 0.24);
+}
+
+.message.error {
+    background: var(--danger-bg);
+    color: #ff9aaa;
+    border-color: rgba(255, 77, 103, 0.24);
+}
+
+.message.info {
+    background: rgba(0, 212, 255, 0.08);
+    color: var(--cyan);
+    border-color: rgba(0, 212, 255, 0.24);
+}
+
+.kv-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-top: 20px;
+}
+
+.kv-card {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.kv-card span {
+    display: block;
+    margin-bottom: 8px;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.kv-card strong {
+    font-size: 18px;
+    color: var(--text);
+}
+
+.split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.terminal {
+    padding: 18px;
+    background: #02070a;
+    border: 1px solid rgba(0, 255, 136, 0.14);
+    font-family: "Share Tech Mono", monospace;
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+.terminal strong {
+    color: var(--green);
+}
+
+.footer-copy {
+    margin-top: 28px;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: left;
+    vertical-align: top;
+}
+
+.admin-table th {
+    font-family: "Share Tech Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .portal-shell {
+        width: min(100% - 24px, 1080px);
+        padding-top: 18px;
+    }
+
+    .portal-grid,
+    .split {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .hero-panel,
+    .card,
+    .stack {
+        padding: 22px;
+    }
+}

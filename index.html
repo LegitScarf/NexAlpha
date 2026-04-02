@@ -209,6 +209,25 @@
             box-shadow: var(--glow);
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-login {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            text-decoration: none;
+        }
+
+        .nav-login:hover {
+            color: var(--text);
+        }
+
         /* ─── HERO ─── */
         #hero {
             position: relative;
@@ -995,6 +1014,11 @@
                 padding: 0 24px;
             }
 
+            .nav-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
             section {
                 padding: 80px 24px;
             }
@@ -1094,7 +1118,10 @@
             <li><a href="#how">How It Works</a></li>
             <li><a href="#tech">Technology</a></li>
         </ul>
-        <a href="#products" class="nav-cta">Explore Products</a>
+        <div class="nav-actions">
+            <a href="login.html" class="nav-login">Member Login</a>
+            <a href="register.html" class="nav-cta">Register</a>
+        </div>
     </nav>
 
     <!-- HERO -->
@@ -1132,8 +1159,8 @@
             </p>
 
             <div class="hero-btns">
-                <a href="#products" class="btn-primary">See Our Products</a>
-                <a href="#vision" class="btn-secondary">Our Vision</a>
+                <a href="register.html" class="btn-primary">Register For Access</a>
+                <a href="account.html" class="btn-secondary">Member Account</a>
             </div>
 
             <div class="hero-stats">
@@ -1227,8 +1254,7 @@
         <div class="products-grid">
 
             <!-- OPTITRADE -->
-            <a href="https://optitrade-nexalpha.streamlit.app/" target="_blank" class="product-card"
-                title="Launch OptiTrade">
+            <a href="access.html?product=optitrade" class="product-card" title="Open OptiTrade Access Check">
                 <div class="card-visual">
                     <div class="beta-tag">BETA v0.1</div>
                     <div class="card-badge">F&O · OPTIONS</div>
@@ -1287,8 +1313,8 @@
             </a>
 
             <!-- BHARATALPHA -->
-            <a href="https://bharatalpha-nexalpha.streamlit.app/" target="_blank"
-                class="product-card amber" title="Launch BharatAlpha">
+            <a href="access.html?product=bharatalpha" class="product-card amber"
+                title="Open BharatAlpha Access Check">
                 <div class="card-visual" style="background:#040a08">
                     <div class="beta-tag">BETA v0.1</div>
                     <div class="card-badge amber-badge">EQUITY · RESEARCH</div>
@@ -1457,13 +1483,11 @@
             Smarter?</div>
         <h2 class="section-title" style="max-width:600px; margin:0 auto 20px">Your <em>Edge</em> in the Indian Market
             Starts Here</h2>
-        <p class="section-desc" style="margin: 0 auto 40px">Both products are live and accessible today. Join our beta
-            and be among the first to experience AI-native market intelligence.</p>
+        <p class="section-desc" style="margin: 0 auto 40px">Public registration is now open. Every account must verify
+            email, receive admin approval, and activate the Rs 500 monthly subscription before either product unlocks.</p>
         <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-            <a href="https://optitrade-nexalpha.streamlit.app/" target="_blank"
-                class="btn-primary">Launch OptiTrade</a>
-            <a href="https://bharatalpha-nexalpha.streamlit.app/" target="_blank"
-                class="btn-secondary">Launch BharatAlpha</a>
+            <a href="access.html?product=optitrade" class="btn-primary">Access OptiTrade</a>
+            <a href="access.html?product=bharatalpha" class="btn-secondary">Access BharatAlpha</a>
         </div>
     </section>
 
