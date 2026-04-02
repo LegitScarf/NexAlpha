@@ -1,7 +1,8 @@
 window.NEXALPHA_CONFIG = Object.freeze({
     supabaseUrl: "https://YOUR_PROJECT_ID.supabase.co",
     supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY",
-    functionsBaseUrl: "https://YOUR_PROJECT_ID.supabase.co/functions/v1",
+    // Optional: leave blank to derive from supabaseUrl automatically.
+    functionsBaseUrl: "",
     billing: {
         amountInr: 500,
         interval: "month"

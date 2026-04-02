@@ -1,4 +1,4 @@
-import { fetchStatus, getSession, requireAuthPage, setMessage } from "./auth-client.js";
+import { fetchStatus, getFunctionsBaseUrl, getSession, requireAuthPage, setMessage } from "./auth-client.js";
 
 const message = document.querySelector("[data-admin-message]");
 const tableBody = document.querySelector("[data-admin-body]");
@@ -10,7 +10,8 @@ async function callFunction(path, method = "GET", body) {
         throw new Error("Admin session not found.");
     }
 
-    const response = await fetch(`${window.NEXALPHA_CONFIG.functionsBaseUrl}/${path}`, {
+    const functionsBaseUrl = getFunctionsBaseUrl();
+    const response = await fetch(`${functionsBaseUrl}/${path}`, {
         method,
         headers: {
             "Content-Type": "application/json",
@@ -30,24 +31,48 @@ async function callFunction(path, method = "GET", body) {
 function renderRow(user) {
     const subscription = user.subscriptionStatus ?? "none";
     const approved = user.approvalStatus ?? "pending";
+    const verificationLabel = user.isEmailVerified ? "Email verified" : "Email verification pending";
+    const verificationClass = user.isEmailVerified ? "status-badge success" : "status-badge warning";
+    const approvalDisabled = user.isEmailVerified ? "" : "disabled";
+    const approvalHint = user.isEmailVerified
+        ? ""
+        : `<div class="muted" style="margin-top: 8px;">Verify email before approval.</div>`;
 
     return `
         <tr>
             <td>
                 <strong>${user.fullName || "Unnamed user"}</strong><br>
                 <span class="muted">${user.email}</span>
+                <div style="margin-top: 10px;">
+                    <span class="${verificationClass}">${verificationLabel}</span>
+                </div>
             </td>
             <td>${approved}</td>
             <td>${subscription}</td>
             <td>${user.state}</td>
             <td>
                 <div class="admin-actions">
-                    <button class="portal-button-secondary" type="button" data-approve="${user.id}">Approve</button>
+                    <button class="portal-button-secondary" type="button" data-approve="${user.id}" ${approvalDisabled}>Approve</button>
                     <button class="portal-button-secondary" type="button" data-reject="${user.id}">Reject</button>
                 </div>
+                ${approvalHint}
             </td>
         </tr>
     `;
+}
+
+async function handleDecision(button, payload, successTone, successMessage) {
+    button.disabled = true;
+
+    try {
+        await callFunction("admin-approve-user", "POST", payload);
+        setMessage(message, successTone, successMessage);
+        await loadUsers();
+    } catch (error) {
+        setMessage(message, "error", error.message);
+    } finally {
+        button.disabled = false;
+    }
 }
 
 async function loadUsers() {
@@ -62,24 +87,20 @@ async function loadUsers() {
     tableBody.querySelectorAll("[data-approve]").forEach((button) => {
         button.addEventListener("click", async () => {
             const targetUserId = button.getAttribute("data-approve");
-            await callFunction("admin-approve-user", "POST", {
+            await handleDecision(button, {
                 targetUserId,
                 decision: "approved"
-            });
-            setMessage(message, "success", "User approved.");
-            await loadUsers();
+            }, "success", "User approved.");
         });
     });
 
     tableBody.querySelectorAll("[data-reject]").forEach((button) => {
         button.addEventListener("click", async () => {
             const targetUserId = button.getAttribute("data-reject");
-            await callFunction("admin-approve-user", "POST", {
+            await handleDecision(button, {
                 targetUserId,
                 decision: "rejected"
-            });
-            setMessage(message, "warning", "User rejected.");
-            await loadUsers();
+            }, "warning", "User rejected.");
         });
     });
 }

@@ -1,13 +1,44 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const config = window.NEXALPHA_CONFIG ?? {};
+const rawConfig = window.NEXALPHA_CONFIG ?? {};
+
+function normalizeString(value) {
+    return typeof value === "string" ? value.trim() : "";
+}
+
+function isPlaceholder(value, placeholder) {
+    return value.includes(placeholder);
+}
+
+function deriveFunctionsBaseUrl(supabaseUrl, explicitBaseUrl) {
+    const normalizedBaseUrl = normalizeString(explicitBaseUrl);
+    if (normalizedBaseUrl && !isPlaceholder(normalizedBaseUrl, "YOUR_PROJECT_ID")) {
+        return normalizedBaseUrl.replace(/\/+$/, "");
+    }
+
+    if (!supabaseUrl) {
+        return "";
+    }
+
+    return `${supabaseUrl.replace(/\/+$/, "")}/functions/v1`;
+}
+
+const config = Object.freeze({
+    ...rawConfig,
+    supabaseUrl: normalizeString(rawConfig.supabaseUrl),
+    supabaseAnonKey: normalizeString(rawConfig.supabaseAnonKey),
+    functionsBaseUrl: deriveFunctionsBaseUrl(
+        normalizeString(rawConfig.supabaseUrl),
+        rawConfig.functionsBaseUrl
+    )
+});
 
 function hasRealConfig() {
     return Boolean(
         config.supabaseUrl &&
         config.supabaseAnonKey &&
-        !config.supabaseUrl.includes("YOUR_PROJECT_ID") &&
-        !config.supabaseAnonKey.includes("YOUR_SUPABASE_ANON_KEY")
+        !isPlaceholder(config.supabaseUrl, "YOUR_PROJECT_ID") &&
+        !isPlaceholder(config.supabaseAnonKey, "YOUR_SUPABASE_ANON_KEY")
     );
 }
 
@@ -17,6 +48,14 @@ export function getConfig() {
 
 export function isConfigured() {
     return hasRealConfig();
+}
+
+export function getFunctionsBaseUrl() {
+    if (!hasRealConfig()) {
+        return "";
+    }
+
+    return config.functionsBaseUrl;
 }
 
 let supabaseClient = null;
@@ -70,7 +109,7 @@ export function requireConfigured(messageNode) {
     setMessage(
         messageNode,
         "warning",
-        "Supabase is not configured yet. Update assets/js/config.js with your project URL and anon key before using auth."
+        "Supabase is not configured yet. Update assets/js/config.js with your real supabaseUrl and supabaseAnonKey before using auth."
     );
     return false;
 }
@@ -112,7 +151,7 @@ export async function fetchStatus() {
         };
     }
 
-    const response = await fetch(`${config.functionsBaseUrl}/me-status`, {
+    const response = await fetch(`${getFunctionsBaseUrl()}/me-status`, {
         headers: {
             Authorization: `Bearer ${session.access_token}`
         }
@@ -137,7 +176,7 @@ export async function createSubscription() {
         throw new Error("Please sign in before starting a subscription.");
     }
 
-    const response = await fetch(`${config.functionsBaseUrl}/create-subscription`, {
+    const response = await fetch(`${getFunctionsBaseUrl()}/create-subscription`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

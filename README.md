@@ -115,7 +115,8 @@ Update `assets/js/config.js` before using the auth flow:
 window.NEXALPHA_CONFIG = Object.freeze({
   supabaseUrl: "https://YOUR_PROJECT_ID.supabase.co",
   supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY",
-  functionsBaseUrl: "https://YOUR_PROJECT_ID.supabase.co/functions/v1",
+  // Optional. Leave blank to derive from supabaseUrl automatically.
+  functionsBaseUrl: "",
   billing: {
     amountInr: 500,
     interval: "month"
@@ -190,7 +191,7 @@ Deploy these functions:
 - `me-status`: returns the current effective access state for the signed-in user
 - `create-subscription`: creates a Razorpay subscription for approved users
 - `admin-list-users`: returns the current approval queue and subscription summary
-- `admin-approve-user`: approves or rejects pending users
+- `admin-approve-user`: approves or rejects pending users, but only after email verification
 - `razorpay-webhook`: verifies webhook signatures and syncs subscription/payment state into Supabase
 
 ---

@@ -13,7 +13,7 @@ type ApprovalRequestBody = {
 type ProfileUpdatePayload = {
     approval_status: ApprovalDecision;
     approved_at: string | null;
-    approved_by: string;
+    approved_by: string | null;
     rejected_reason: string | null;
 };
 
@@ -62,6 +62,27 @@ Deno.serve(async (request) => {
             return Response.json({ error: "Invalid approval payload." }, { status: 400, headers: corsHeaders });
         }
 
+        const { data: targetProfile, error: targetError } = await admin
+            .from("profiles")
+            .select("id, is_email_verified")
+            .eq("id", targetUserId)
+            .maybeSingle();
+
+        if (targetError) {
+            throw targetError;
+        }
+
+        if (!targetProfile) {
+            return Response.json({ error: "Target user not found." }, { status: 404, headers: corsHeaders });
+        }
+
+        if (decision === "approved" && !targetProfile.is_email_verified) {
+            return Response.json(
+                { error: "Users must verify their email before they can be approved." },
+                { status: 409, headers: corsHeaders }
+            );
+        }
+
         const updatePayload: ProfileUpdatePayload = decision === "approved"
             ? {
                 approval_status: "approved",
@@ -72,7 +93,7 @@ Deno.serve(async (request) => {
             : {
                 approval_status: "rejected",
                 approved_at: null,
-                approved_by: actor.id,
+                approved_by: null,
                 rejected_reason: rejectedReason || "Rejected by admin"
             };
 
