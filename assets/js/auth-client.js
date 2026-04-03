@@ -75,6 +75,26 @@ export function requireConfigured(messageNode) {
     return false;
 }
 
+function formatApiError(payload) {
+    if (typeof payload?.detail === "string" && payload.detail.trim()) {
+        return payload.detail;
+    }
+
+    if (Array.isArray(payload?.detail) && payload.detail.length > 0) {
+        return payload.detail.map((item) => {
+            const location = Array.isArray(item?.loc) ? item.loc.join(".") : "request";
+            const message = typeof item?.msg === "string" ? item.msg : "Invalid value.";
+            return `${location}: ${message}`;
+        }).join(" ");
+    }
+
+    if (typeof payload?.error === "string" && payload.error.trim()) {
+        return payload.error;
+    }
+
+    return "Request failed.";
+}
+
 export async function apiRequest(path, options = {}) {
     const { method = "GET", body, headers = {} } = options;
 
@@ -94,7 +114,7 @@ export async function apiRequest(path, options = {}) {
 
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-        throw new Error(payload.detail ?? payload.error ?? "Request failed.");
+        throw new Error(formatApiError(payload));
     }
 
     return payload;
