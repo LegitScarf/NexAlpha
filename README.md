@@ -46,10 +46,7 @@ nexalpha/
 │       ├── schemas.py
 │       ├── security.py
 │       └── services/
-└── supabase/
 ```
-
-`supabase/` is kept as legacy reference material from the previous implementation. The active runtime now lives in `backend/`.
 
 ## Local Development
 

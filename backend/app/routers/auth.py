@@ -51,6 +51,7 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
         user = existing
         user.full_name = payload.full_name.strip()
         user.password_hash = hash_password(payload.password)
+        user.role = AppRole.USER
         user.approval_status = ApprovalStatus.PENDING
         user.approved_at = None
         user.approved_by = None
