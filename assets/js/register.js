@@ -1,4 +1,12 @@
-import { bounceIfAuthenticated, clearMessage, redirectTo, registerAccount, requireConfigured, setMessage } from "./auth-client.js";
+import {
+    clearMessage,
+    getRedirectTarget,
+    getSession,
+    redirectTo,
+    registerAccount,
+    requireConfigured,
+    setMessage
+} from "./auth-client.js";
 
 const form = document.querySelector("[data-register-form]");
 const message = document.querySelector("[data-form-message]");
@@ -15,8 +23,23 @@ async function init() {
         return;
     }
 
-    await bounceIfAuthenticated();
-    requireConfigured(message);
+    if (!requireConfigured(message)) {
+        return;
+    }
+
+    const session = await getSession().catch(() => null);
+    if (session?.authenticated && session.user?.role !== "admin") {
+        redirectTo(getRedirectTarget("account.html"));
+        return;
+    }
+
+    if (session?.authenticated && session.user?.role === "admin") {
+        setMessage(
+            message,
+            "info",
+            "Admin session detected. You can create another user here without being logged out or charged."
+        );
+    }
 }
 
 form?.addEventListener("submit", async (event) => {
@@ -63,13 +86,25 @@ form?.addEventListener("submit", async (event) => {
             password
         });
 
+        form.reset();
+
         if (payload.emailDelivery === "preview" && payload.verificationUrl && helper) {
             helper.innerHTML = `
                 <a class="portal-button" href="${payload.verificationUrl}">Verify Email Now</a>
                 <a class="portal-button-secondary" href="login.html">Go To Sign In</a>
             `;
         } else if (helper) {
-            helper.innerHTML = `<a class="portal-button-secondary" href="login.html">Go To Sign In</a>`;
+            helper.innerHTML = `
+                <a class="portal-button-secondary" href="login.html">Go To Sign In</a>
+                <button class="portal-button" type="button" data-register-another>Create Another</button>
+            `;
+
+            const resetButton = helper.querySelector("[data-register-another]");
+            resetButton?.addEventListener("click", () => {
+                clearMessage(message);
+                clearHelper();
+                form.querySelector("#full_name")?.focus();
+            });
         }
 
         setMessage(
@@ -79,12 +114,6 @@ form?.addEventListener("submit", async (event) => {
                 ? `Account created for ${email}. This backend is running without SMTP, so use the verification link below before signing in.`
                 : `Account created for ${email}. Check your inbox, verify your email, then sign in to continue.`
         );
-
-        if (payload.emailDelivery !== "preview") {
-            window.setTimeout(() => {
-                redirectTo("login.html");
-            }, 2400);
-        }
     } catch (error) {
         setMessage(message, "error", error.message);
     } finally {
