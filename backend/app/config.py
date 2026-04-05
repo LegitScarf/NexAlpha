@@ -53,6 +53,7 @@ class Settings:
     smtp_username: str | None
     smtp_password: str | None
     smtp_use_tls: bool
+    smtp_timeout_seconds: int
     smtp_from_email: str | None
     smtp_from_name: str
     bootstrap_admin_email: str | None
@@ -89,6 +90,7 @@ def get_settings() -> Settings:
         smtp_username=os.getenv("SMTP_USERNAME"),
         smtp_password=os.getenv("SMTP_PASSWORD"),
         smtp_use_tls=os.getenv("SMTP_USE_TLS", "true").lower() == "true",
+        smtp_timeout_seconds=int(os.getenv("SMTP_TIMEOUT_SECONDS", "10")),
         smtp_from_email=os.getenv("SMTP_FROM_EMAIL"),
         smtp_from_name=os.getenv("SMTP_FROM_NAME", "NexAlpha"),
         bootstrap_admin_email=os.getenv("BOOTSTRAP_ADMIN_EMAIL"),

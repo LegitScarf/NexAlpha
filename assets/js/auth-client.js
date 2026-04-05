@@ -96,21 +96,35 @@ function formatApiError(payload) {
 }
 
 export async function apiRequest(path, options = {}) {
-    const { method = "GET", body, headers = {} } = options;
+    const { method = "GET", body, headers = {}, timeoutMs = 15000 } = options;
 
     if (!isConfigured()) {
         throw new Error("FastAPI is not configured.");
     }
 
-    const response = await fetch(`${getApiBaseUrl()}${path}`, {
-        method,
-        credentials: "include",
-        headers: {
-            ...(body ? { "Content-Type": "application/json" } : {}),
-            ...headers
-        },
-        body: body ? JSON.stringify(body) : undefined
-    });
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
+
+    let response;
+    try {
+        response = await fetch(`${getApiBaseUrl()}${path}`, {
+            method,
+            credentials: "include",
+            headers: {
+                ...(body ? { "Content-Type": "application/json" } : {}),
+                ...headers
+            },
+            body: body ? JSON.stringify(body) : undefined,
+            signal: controller.signal
+        });
+    } catch (error) {
+        if (error?.name === "AbortError") {
+            throw new Error("The request took too long. Please try again. If this keeps happening, check the email delivery settings on the server.");
+        }
+        throw error;
+    } finally {
+        window.clearTimeout(timeoutId);
+    }
 
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {

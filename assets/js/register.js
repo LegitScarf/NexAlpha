@@ -6,7 +6,7 @@ import {
     registerAccount,
     requireConfigured,
     setMessage
-} from "./auth-client.js";
+} from "./auth-client.js?v=20260405";
 
 const form = document.querySelector("[data-register-form]");
 const message = document.querySelector("[data-form-message]");
@@ -112,7 +112,7 @@ form?.addEventListener("submit", async (event) => {
             "success",
             payload.emailDelivery === "preview"
                 ? `Account created for ${email}. This backend is running without SMTP, so use the verification link below before signing in.`
-                : `Account created for ${email}. Check your inbox, verify your email, then sign in to continue.`
+                : `Account created for ${email}. The verification email has been queued. Check your inbox, verify your email, then sign in to continue.`
         );
     } catch (error) {
         setMessage(message, "error", error.message);

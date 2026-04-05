@@ -21,7 +21,7 @@ from ..security import (
     verify_password,
 )
 from ..services.accounts import add_audit_log, serialize_user
-from ..services.email import send_verification_email
+from ..services.email import queue_verification_email
 
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -86,7 +86,7 @@ def register(payload: RegisterRequest, request: Request, db: Session = Depends(g
 
     db.commit()
 
-    delivery = send_verification_email(
+    delivery = queue_verification_email(
         user.email,
         user.full_name,
         raw_token,
