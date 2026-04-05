@@ -137,7 +137,7 @@ window.NEXALPHA_CONFIG = Object.freeze({
   appBaseUrl: "",
   apiBaseUrl: "",
   billing: {
-    amountInr: 500,
+    amountInr: 599,
     interval: "month"
   },
   products: {
@@ -217,7 +217,7 @@ That marks the user as `admin`, sets approval to `approved`, and allows access t
 
 ## Notes
 
-- One `Rs 500/month` subscription unlocks both apps.
+- One `Rs 599/month` subscription unlocks both apps.
 - The admin approval rule still requires verified email before approval.
 - Direct Streamlit app URLs are not fully protected unless those apps also validate NexAlpha entitlement server-side.
 

@@ -66,7 +66,7 @@ class Subscription(Base):
     gateway_subscription_id = Column(String(255), nullable=True, unique=True, index=True)
     gateway_plan_id = Column(String(255), nullable=True)
     status = Column(SqlEnum(SubscriptionStatus), nullable=False, default=SubscriptionStatus.PENDING)
-    amount_inr = Column(Integer, nullable=False, default=500)
+    amount_inr = Column(Integer, nullable=False, default=599)
     currency = Column(String(12), nullable=False, default="INR")
     current_period_start = Column(DateTime(timezone=True), nullable=True)
     current_period_end = Column(DateTime(timezone=True), nullable=True)
@@ -102,4 +102,3 @@ class AuditLog(Base):
     action = Column(String(255), nullable=False)
     details = Column(JSON, nullable=False, default=dict)
     created_at = Column(DateTime(timezone=True), nullable=False, default=utcnow)
-

@@ -53,7 +53,7 @@ async function init() {
                 actions: "<a class=\"portal-button-secondary\" href=\"account.html\">View Account</a>"
             },
             approved_unsubscribed: {
-                copy: "Your account is approved. Start the Rs 500/month plan to unlock both apps.",
+                copy: "Your account is approved. Start the Rs 599/month plan to unlock both apps.",
                 actions: "<a class=\"portal-button\" href=\"account.html\">Subscribe Now</a>"
             },
             approved_subscription_pending: {

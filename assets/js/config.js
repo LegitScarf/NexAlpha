@@ -3,7 +3,7 @@ window.NEXALPHA_CONFIG = Object.freeze({
     appBaseUrl: "",
     apiBaseUrl: "",
     billing: {
-        amountInr: 500,
+        amountInr: 599,
         interval: "month"
     },
     products: {
