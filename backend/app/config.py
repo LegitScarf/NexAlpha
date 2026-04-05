@@ -48,6 +48,10 @@ class Settings:
     razorpay_key_secret: str | None
     razorpay_plan_id: str | None
     razorpay_webhook_secret: str | None
+    email_provider: str
+    email_request_timeout_seconds: int
+    brevo_api_key: str | None
+    brevo_api_base_url: str
     smtp_host: str | None
     smtp_port: int
     smtp_username: str | None
@@ -85,6 +89,10 @@ def get_settings() -> Settings:
         razorpay_key_secret=os.getenv("RAZORPAY_KEY_SECRET"),
         razorpay_plan_id=os.getenv("RAZORPAY_PLAN_ID"),
         razorpay_webhook_secret=os.getenv("RAZORPAY_WEBHOOK_SECRET"),
+        email_provider=os.getenv("EMAIL_PROVIDER", "auto").strip().lower(),
+        email_request_timeout_seconds=int(os.getenv("EMAIL_REQUEST_TIMEOUT_SECONDS", "10")),
+        brevo_api_key=os.getenv("BREVO_API_KEY"),
+        brevo_api_base_url=os.getenv("BREVO_API_BASE_URL", "https://api.brevo.com/v3").rstrip("/"),
         smtp_host=os.getenv("SMTP_HOST"),
         smtp_port=int(os.getenv("SMTP_PORT", "587")),
         smtp_username=os.getenv("SMTP_USERNAME"),

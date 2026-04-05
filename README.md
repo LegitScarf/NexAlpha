@@ -103,11 +103,10 @@ CORS_ORIGINS=https://your-railway-domain.up.railway.app
 BOOTSTRAP_ADMIN_EMAIL=admin@example.com
 BOOTSTRAP_ADMIN_PASSWORD=change-me-now
 BOOTSTRAP_ADMIN_NAME=NexAlpha Admin
-SMTP_HOST=smtp-relay.brevo.com
-SMTP_PORT=587
-SMTP_USERNAME=your-brevo-login
-SMTP_PASSWORD=your-brevo-smtp-key
-SMTP_USE_TLS=true
+EMAIL_PROVIDER=brevo_api
+EMAIL_REQUEST_TIMEOUT_SECONDS=10
+BREVO_API_KEY=your-brevo-api-key
+BREVO_API_BASE_URL=https://api.brevo.com/v3
 SMTP_FROM_EMAIL=your-verified-sender@example.com
 SMTP_FROM_NAME=NexAlpha
 RAZORPAY_KEY_ID=
@@ -126,6 +125,7 @@ RAZORPAY_WEBHOOK_SECRET=
 ### Notes
 
 - If `DATABASE_URL` is not set, the app now automatically uses `RAILWAY_VOLUME_MOUNT_PATH/nexalpha.db` when Railway provides a mounted volume path.
+- Railway lower tiers are a better fit with HTTPS email APIs than raw SMTP, so the app now prefers Brevo API when `BREVO_API_KEY` is set.
 - For a more production-grade setup later, move from SQLite to Postgres.
 
 ## Configuration
@@ -163,6 +163,12 @@ Backend environment variables live in `backend/.env.example`. Important ones:
 - `BOOTSTRAP_ADMIN_PASSWORD`
 - `ENABLE_DEV_TOOLS`
 - `DEV_ADMIN_TOKEN`
+- `EMAIL_PROVIDER`
+- `EMAIL_REQUEST_TIMEOUT_SECONDS`
+- `BREVO_API_KEY`
+- `BREVO_API_BASE_URL`
+- `SMTP_FROM_EMAIL`
+- `SMTP_FROM_NAME`
 - `SMTP_*`
 - `RAZORPAY_KEY_ID`
 - `RAZORPAY_KEY_SECRET`
